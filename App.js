@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar';
-// CORREÇÃO: View e StyleSheet importados do pacote correto (react-native)
 import { StyleSheet, View } from 'react-native'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,19 +6,44 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/pages/Home/Home';
 import Sobre from './src/pages/Sobre/Sobre';
 import Pedidos from './src/pages/Pedidos/Pedidos';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Feather } from '@expo/vector-icons';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <StatusBar style="auto" />
-        <Stack.Navigator>
-          <Stack.Screen name='Home' component={Home} />
-          <Stack.Screen name='Sobre' component={Sobre} />
-          <Stack.Screen name='Pedidos' component={Pedidos} />
-        </Stack.Navigator>
+        <Tab.Navigator>
+          <Tab.Screen
+          name='Home'
+          component={Home}
+          options={{
+            tabBarIcon:({color, size}) =>{
+              return <Feather name='home' color={color} size={size}/>
+            }
+          }}
+          />
+          <Tab.Screen
+          name='Sobre'
+          component={Sobre}
+          options={{
+            tabBarIcon: ({color, size}) =>{
+              return <Feather name='info' color={color} size={size}/>
+            }
+          }}
+          />
+          <Tab.Screen
+          name='Pedidos'
+          component={Pedidos}
+          options={{
+            tabBarIcon: ({color, size}) =>{
+              return <Feather name='clipboard' color={color} size={size}/>
+            }
+          }}
+          />
+        </Tab.Navigator>
       </NavigationContainer>
     </View>
   );
