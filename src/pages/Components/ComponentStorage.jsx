@@ -78,62 +78,81 @@ async function removerUsuario(id) {
     }
 }
 
-    return(
+    return (
         <View style={styles.container}>
             <View style={styles.login}>
-            <ScrollView>
-                <Text style={styles.textoLogin}>Faça o login para autenticar sua aura</Text>
-                <TextInput
-                    placeholder="Nome"
-                    value={nome}
-                    onChangeText={setNome}
-                />
-                <TextInput
-                placeholder="Idade"
-                keyboardType="numeric"
-                value={idade}
-                onChangeText={setIdade}
-                />
-                <TextInput
-                placeholder="Cidade"
-                value={cidade}
-                onChangeText={setCidade}
-                />
+                <ScrollView 
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
+                    <Text style={styles.textoLogin}>Faça o login para autenticar sua aura</Text>
+                    
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Nome"
+                        value={nome}
+                        onChangeText={setNome}
+                        placeholderTextColor="#888"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Idade"
+                        keyboardType="numeric"
+                        value={idade}
+                        onChangeText={setIdade}
+                        placeholderTextColor="#888"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Cidade"
+                        value={cidade}
+                        onChangeText={setCidade}
+                        placeholderTextColor="#888"
+                    />
 
-                <TouchableOpacity styles={styles.botaoSalvar}>
-                    onPress={salvarUsuario}
-                    <Text style={styles.textoSigma}>Salvar usuário Sigma</Text>
-                </TouchableOpacity>
-            </ScrollView>
+                    <TouchableOpacity style={styles.botao} onPress={salvarUsuario}>
+                        <Text style={styles.textoBotao}>Salvar usuário Sigma</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
   login: {
     backgroundColor: 'yellow', 
     padding: 25,
     borderRadius: 15,
     width: '90%',
     maxWidth: 400,
-    alignItems: 'center',
   },
-
-   textoLogin: {
+  scrollContent: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  textoLogin: {
     fontSize: 22,
     fontWeight: '900',
     color: '#FF003F',
     textAlign: 'center',
     marginBottom: 15,
-   },
-
-    botaoSalvar: {
+  },
+  input: {
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    width: '100%',
+    borderWidth: 1,
+  },
+  botao: {
     backgroundColor: '#FF003F',
     paddingVertical: 12,
     paddingHorizontal: 25,
@@ -141,12 +160,11 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     width: '100%',
     alignItems: 'center',
-    },
-
-    textoSigma: {
-    color: '#FFF',
+  },
+  textoBotao: {
+    color: '#fff', 
     fontWeight: 'bold',
     fontSize: 16,
     textTransform: 'uppercase',
-    }
+  },
 });

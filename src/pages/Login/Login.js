@@ -4,6 +4,12 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import ComponentStorage from "../Components/ComponentStorage";
 
-    <View>
+export default function Login(){
+    return(
+        <View>
         <ComponentStorage/>
-    </View>
+        </View>
+    )
+}
+
+    
