@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/pages/Home/Home';
 import Sobre from './src/pages/Sobre/Sobre';
 import Pedidos from './src/pages/Pedidos/Pedidos';
-import Login from './src/pages/Login/Login';
+import Usuarios from './src/pages/Usuarios/Usuarios';
 import ComponentStorage from './src/pages/Components/ComponentStorage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
@@ -48,8 +48,8 @@ export default function App() {
           }}
           />
           <Tab.Screen
-          name='Login'
-          component={Login}
+          name='Usuarios'
+          component={Usuarios}
           options={{
             tabBarIcon: ({color, size}) =>{
               return <Feather name='log-in' color={color} size={size}/>
