@@ -1,6 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Picker } from 'react-native-web';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { Picker } from 'react-native-web'; // Se estiver usando no celular, lembre-se de importar de '@react-native-picker/picker'
 
 export default function Pedidos(){
     const imagensPizza = {
@@ -14,20 +15,74 @@ export default function Pedidos(){
         marguerita: 'https://s2-receitas.glbimg.com/BmkjA0L1Z3ciNldyhh8gYxrT_MQ=/1366x0/filters:format(jpeg)/https://i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2025/i/t/M0NAabSCKba8nzZy6wzw/pizza-margherita-receita.jpg'
     }
 
-    const [sabor, setSabor] = useState('')
+    const [sabor, setSabor] = useState('');
+    const [listaSabores, setListaSabores] = useState([]); 
+
+    async function salvarSabor() {
+        if (sabor === '') {
+            alert('Por favor, selecione um sabor antes de salvar.');
+            return;
+        }
+
+        try {
+            const novoSabor = {
+                id: Date.now().toString(),
+                sabor: sabor
+            };
+
+            const dados = await AsyncStorage.getItem('sabor');
+            let lista = [];
+
+            if (dados != null) {
+                lista = JSON.parse(dados);
+            }
+
+            lista.push(novoSabor);
+
+            await AsyncStorage.setItem('sabor', JSON.stringify(lista));
+
+            setSabor(''); 
+            alert('Sabor selecionado e salvo com sucesso!');
+            
+            
+            setListaSabores(lista); 
+        } catch (error) {
+            console.log('Erro ao salvar: ' + error);
+        }
+    }
+
+    async function exibirSabor() {
+        try {
+            const dados = await AsyncStorage.getItem('sabor');
+
+            if (dados != null) {
+                setListaSabores(JSON.parse(dados));
+            } else {
+                setListaSabores([]);
+                alert('Nenhum sabor salvo ainda.');
+            }
+        } catch (error) {
+            console.log('Erro ao exibir: ' + error);
+        }
+    }
+
+    async function limparBanco() {
+    await AsyncStorage.removeItem('sabor');
+    setListaSabores([]);
+    alert('Banco de dados limpo com sucesso!');
+}
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.layout}>
              
                 <Image
-                    source={require('../../../assets/pizza67.png')}
+                    source={require('../../../assets/pedido.png')}
                     style={styles.logoPizzaria}
                 />
                 
                 <Text style={styles.textoMenu}>Menu de Pizzas</Text>
                 
-               
                 <Picker
                     selectedValue={sabor}
                     onValueChange={(itemValue) => setSabor(itemValue)}
@@ -48,25 +103,49 @@ export default function Pedidos(){
                     {sabor === '' ? 'Nenhum sabor selecionado' : `Sabor escolhido: ${sabor}`}
                 </Text>
                 
-                
-                {sabor !== '' && (
+                {sabor !== '' && imagensPizza[sabor] && (
                     <Image
                         source={{ uri: imagensPizza[sabor] }}
                         style={styles.imagemPizzaSelecionada}
                     />
                 )}
+
+                <TouchableOpacity style={styles.botao} onPress={salvarSabor}>
+                    <Text style={styles.textoBotao}>Salvar Sabor</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.botao} onPress={exibirSabor}>
+                    <Text style={styles.textoBotao}>Mostrar Sabores Selecionados</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.botao, {backgroundColor: '#333'}]} onPress={limparBanco}>
+                <Text style={styles.textoBotao}>Limpar Histórico Sujo</Text>
+                </TouchableOpacity>
+
+
+                {listaSabores.length > 0 && (
+                    <View style={styles.containerLista}>
+                        <Text style={styles.tituloLista}>Pedidos Salvos:</Text>
+                        {listaSabores.map((item) => (
+                            <Text key={item.id} style={styles.itemLista}>
+                                • Pizza de {item.sabor.replace('_', ' ')}
+                            </Text>
+                        ))}
+                    </View>
+                )}
                 
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
+        padding: 20,
         backgroundColor: '#f5f5f5',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center'
     },
     layout: {
         backgroundColor: 'yellow',
@@ -108,10 +187,45 @@ const styles = StyleSheet.create({
         width: 180, 
         height: 180, 
         resizeMode: 'cover',
-       
         borderRadius: 90, 
         marginTop: 5,
+        marginBottom: 15,
         borderWidth: 3,
         borderColor: '#fff', 
+    },
+    botao: {
+        backgroundColor: '#FF003F',
+        paddingVertical: 12,
+        paddingHorizontal: 25,
+        borderRadius: 8,
+        marginVertical: 6,
+        width: '100%',
+        alignItems: 'center',
+    },
+    textoBotao: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
+        textTransform: 'uppercase',
+    },
+    containerLista: {
+        marginTop: 15,
+        width: '100%',
+        alignItems: 'flex-start',
+        backgroundColor: 'rgba(255,255,255,0.6)',
+        padding: 10,
+        borderRadius: 8
+    },
+    tituloLista: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        marginBottom: 5,
+        color: '#333'
+    },
+    itemLista: {
+        fontSize: 14,
+        color: '#333',
+        textTransform: 'capitalize',
+        marginVertical: 2
     }
 });

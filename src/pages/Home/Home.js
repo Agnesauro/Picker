@@ -8,26 +8,25 @@ export default function Home(){
         <View style={styles.container}>
             <View style={styles.home}>
               <Image
-               source={require('../../../assets/sigma.png')}
+               source={require('../../../assets/fornatta.jpg')}
               style={styles.imagemHome}
 />
                 
-                <Text style={styles.textoHome}>ATENÇÃO SKIBIDIS CHIGMAS DE RIO DE JANEIRO!! 🔥🍕</Text>
+                <Text style={styles.textoHome}>ATENÇÃO RIO DE JANEIRO!! 🔥🍕</Text>
                 
                 <Text style={styles.textoIntro}>
-                    Você acabou de spawnar no app mais RIZZ de toda a internet. 
-                    Se você tem mais de 200 de QI de aura, já sabe que a nossa pizza é cozinhada diretamente em Ohio pelo próprio Baby Gronk.   
-                    Não seja um betinha cuck do IFood. 
-                    Peça agora a sua pizza 67 e venha fazer o Mewing gastronômico mais insano da sua vida com a nossa borda recheada que vai derreter o seu cérebro de vez.   
-                    Aviso: Contém 100% de taxa de imposto do Fanum se você dividir com o seu duo. GRIMACE SHAKE INCLUÍDO NO COMBO!! GYATT!!! 💀🔥🗣️
+                    Na Fornatta, nós transformamos ingredientes simples em experiências extraordinárias. 
+                    Combinamos a clássica tradição italiana com um toque de inovação urbana. 
+                    Massas leves, bordas aeradas e recheios generosos que vão transformar a sua noite. 
+                    Peça agora e sinta a diferença do fogo alto!
                 </Text>
 
                 <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Sobre')}>
-                    <Text style={styles.textoBotao}>Nossa Aura (Sobre)</Text>
+                    <Text style={styles.textoBotao}>Sobre Nós</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Pedidos')}>
-                    <Text style={styles.textoBotao}>Resgatar Gain (Pedidos)</Text>
+                    <Text style={styles.textoBotao}>Pedidos</Text>
                 </TouchableOpacity>
             </View>
         </View>

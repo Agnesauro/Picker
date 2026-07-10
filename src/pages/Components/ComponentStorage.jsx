@@ -12,7 +12,7 @@ export default function ComponentStorage() {
     async function salvarUsuario() {
         try {
             const novoUsuario = {
-                id: Date.now().toString, // salvando id e convertendo para string
+                id: Date.now().toString(), // salvando id e convertendo para string
                 nome,
                 idade,
                 cidade,
@@ -33,7 +33,8 @@ export default function ComponentStorage() {
                 JSON.stringify(lista)
             );
 
-            setNome('');
+            // limpar formulário
+            setNome(''); 
             setIdade('');
             setCidade('');
 
@@ -85,7 +86,7 @@ export default function ComponentStorage() {
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    <Text style={styles.textoLogin}>Cadastre-se para autenticar sua aura</Text>
+                    <Text style={styles.textoLogin}>Cadastre-se! Não perca essa oportunidade 😄</Text>
 
                     <TextInput
                         style={styles.input}
@@ -111,11 +112,11 @@ export default function ComponentStorage() {
                     />
 
                     <TouchableOpacity style={styles.botao} onPress={salvarUsuario}>
-                        <Text style={styles.textoBotao}>Salvar usuário Sigma</Text>
+                        <Text style={styles.textoBotao}>Salvar Usuário</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.botao} onPress={carregarUsuarios}>
-                        <Text style={styles.textoBotao}>Exibir Sigmas</Text>
+                        <Text style={styles.textoBotao}>Exibir Usuários</Text>
                     </TouchableOpacity>
 
                     {usuarios.map((usuario) => (
@@ -127,7 +128,7 @@ export default function ComponentStorage() {
                             </View>
 
                             <TouchableOpacity style={styles.botaoDeletar} onPress={() => removerUsuario(usuario.id)}>
-                                <Text style={styles.textoBotao}>Apagar Um Betinha</Text>
+                                <Text style={styles.textoBotao}>Remover Usuário</Text>
                             </TouchableOpacity>
                         </View>
                     ))}

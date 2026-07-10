@@ -5,15 +5,10 @@ export default function Sobre(){
     return(
         <View style={styles.container}>
             <View style={styles.containerSobre}>
-            <Text style={styles.textoSobre}>Sobre nós: </Text>
-            <Text style={styles.textoGeral}>Tudo começou quando o nosso Fundador Alpha percebeu que o mercado de pizzas tradicional tinha zero aura. 
-                As outras pizzarias eram todas betinhas, vibes meio flop, sem nenhum tipo de rizz.  
-                Foi aí que ele viajou até os confins mais obscuros de Ohio e selou um pacto secreto com o próprio Kai Cenat. 
-                O objetivo? Trazer para o Rio de Janeiro a receita da massa mais chigma do multiverso, assada no calor de 10.000 edits do TikTok.  
-                Nós não apenas fazemos comida. Nós dropamos gain gastronômico em forma de disco redondo. 
-                Cada ingrediente nosso passa pelo teste do mewing antes de ir para o forno. 
-                Nossa missão de vida é garantir que você e seu duo tenham o maior pico de dopamina possível sem precisar tocar em um único fio de grama.  
-                Se você leu até aqui, sua aura subiu +500 pontos. É a tropa dos Skibidis da 67, tropa do Looksmaxxing da gordura trans! SIGMA SQUAD ONLY!!! 💀🔥🗣️👑</Text>
+            <Text style={styles.textoSobre}>Nossa História: O Sabor da Tradição </Text>
+            <Text style={styles.textoGeral}>A Pizzaria Fornatta nasceu de uma paixão antiga: o respeito pelo tempo, pelos bons ingredientes e pelas reuniões ao redor da mesa. 
+              Inspirados nas antigas vilas italianas, onde o forno a lenha era o coração da casa e o ponto de encontro de famílias e amigos, decidimos trazer essa mesma atmosfera calorosa para perto de você.
+              O nosso nome não é por acaso. Fornatta celebra o nosso maior orgulho: o forno de pedra, de onde saem pizzas com aquela massa perfeitamente aerada, bordas tostadas e o inconfundível aroma defumado que só a lenha legítima consegue dar.</Text>
             </View>
         </View>
     )
@@ -22,9 +17,11 @@ export default function Sobre(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     backgroundColor: '#f5f5f5',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center'
+
   },
 
   containerSobre: {
