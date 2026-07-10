@@ -12,14 +12,13 @@ export default function ComponentStorage() {
     async function salvarUsuario() {
         try {
             const novoUsuario = {
-                id: Date.now().toString(), // salvando id e convertendo para string
+                id: Date.now().toString(),
                 nome,
                 idade,
                 cidade,
             };
 
-            const dados = await
-                AsyncStorage.getItem('usuarios');
+            const dados = await AsyncStorage.getItem('usuarios');
             let lista = [];
 
             if (dados != null) {
@@ -27,13 +26,8 @@ export default function ComponentStorage() {
             }
 
             lista.push(novoUsuario);
+            await AsyncStorage.setItem("usuarios", JSON.stringify(lista));
 
-            await AsyncStorage.setItem(
-                "usuarios",
-                JSON.stringify(lista)
-            );
-
-            // limpar formulário
             setNome(''); 
             setIdade('');
             setCidade('');
@@ -44,13 +38,9 @@ export default function ComponentStorage() {
         }
     }
 
-    // listar usuarios
-
     async function carregarUsuarios() {
         try {
-            const dados = await
-                AsyncStorage.getItem('usuarios');
-
+            const dados = await AsyncStorage.getItem('usuarios');
             if (dados != null) {
                 setUsuarios(JSON.parse(dados));
             } else {
@@ -63,17 +53,9 @@ export default function ComponentStorage() {
 
     async function removerUsuario(id) {
         try {
-            const novaLista = usuarios.filter(
-                usuario => usuario.id !== id
-            );
-
-            await AsyncStorage.setItem(
-                'usuarios',
-                JSON.stringify(novaLista)
-            );
-
+            const novaLista = usuarios.filter(usuario => usuario.id !== id);
+            await AsyncStorage.setItem('usuarios', JSON.stringify(novaLista));
             setUsuarios(novaLista)
-
         } catch (error) {
             console.log('Erro: ' + error)
         }
@@ -81,11 +63,11 @@ export default function ComponentStorage() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.login}>
-                <ScrollView
-                    contentContainerStyle={styles.scrollContent}
-                    showsVerticalScrollIndicator={false}
-                >
+            <ScrollView 
+                contentContainerStyle={styles.scrollContent} 
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.login}>
                     <Text style={styles.textoLogin}>Cadastre-se! Não perca essa oportunidade 😄</Text>
 
                     <TextInput
@@ -120,7 +102,7 @@ export default function ComponentStorage() {
                     </TouchableOpacity>
 
                     {usuarios.map((usuario) => (
-                        <View key={usuario.id}>
+                        <View key={usuario.id} style={styles.cardUsuario}>
                             <View>
                                 <Text>Nome: {usuario.nome}</Text>
                                 <Text>Idade: {usuario.idade}</Text>
@@ -132,8 +114,8 @@ export default function ComponentStorage() {
                             </TouchableOpacity>
                         </View>
                     ))}
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </View>
     );
 }
@@ -141,9 +123,13 @@ export default function ComponentStorage() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#f5f5f5', 
+    },
+    scrollContent: {
+        flexGrow: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center',     
+        paddingVertical: 40,
     },
     login: {
         backgroundColor: 'yellow',
@@ -151,13 +137,6 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         width: '90%',
         maxWidth: 400,
-        maxHeight: '85%', 
-    },
-    scrollContent: {
-        alignItems: 'center',
-        width: '100%',
-        flexGrow: 1, 
-        paddingBottom: 20,
     },
     textoLogin: {
         fontSize: 22,
@@ -173,7 +152,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         width: '100%',
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#ccc'
     },
     botao: {
         backgroundColor: '#FF003F',
@@ -199,5 +178,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textTransform: 'uppercase',
     },
-
-})
+    cardUsuario: {
+        backgroundColor: '#fff',
+        padding: 15,
+        borderRadius: 8,
+        marginTop: 15,
+        width: '100%',
+        borderWidth: 1,
+        borderColor: '#eee'
+    }
+});

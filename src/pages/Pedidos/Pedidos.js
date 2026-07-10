@@ -119,7 +119,7 @@ export default function Pedidos(){
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.botao, {backgroundColor: '#333'}]} onPress={limparBanco}>
-                <Text style={styles.textoBotao}>Limpar Histórico Sujo</Text>
+                <Text style={styles.textoBotao}>Limpar Histórico</Text>
                 </TouchableOpacity>
 
 
